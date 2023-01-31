@@ -41,7 +41,7 @@ export default function Home() {
               <div className='post' key={post.id}>
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
-                <Link href={`/posts/${post.id}`} className='geral-btn'>Ler mais</Link>
+                <Link href={`/posts/${post.id}`} className='geral-btn'>Ler mais</Link> //Não é funcional, era só para entender a ideia de rotas dinâmicas
               </div>
             ))
               )}

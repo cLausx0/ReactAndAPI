@@ -2,18 +2,24 @@ import Navbar from 'components/Navbar'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState} from 'react'
+import Router from 'next/router'
 import blogFetch from '../services/config'
-import { useNavigate } from 'react-router-dom'
 
 export default function NewPost() {
   // const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const createPost = (e) => {
+  const createPost = async (e) => {
     e.preventDefault();
 
-    console.log("teste");
+    const post = { title, body, userId: 1 };
+
+    await blogFetch.post('/posts', {
+      body: post,
+    })
+
+    Router.push('/');
   };
 
   return (
@@ -31,11 +37,11 @@ export default function NewPost() {
           <form onSubmit={(e) => createPost(e)}>
             <div className="form-control">
               <label htmlFor="title">Título:</label>
-              <input type="text" name="title" id='title' placeholder='Digite o título'></input>
+              <input type="text" name="title" id='title' placeholder='Digite o título' onChange={(e) => setTitle(e.target.value)}></input>
             </div>
             <div className="form-control">
               <label htmlFor="body">Conteúdo:</label>
-              <textarea name="body" id="body" placeholder='Digite o conteúdo'></textarea>
+              <textarea name="body" id="body" placeholder='Digite o conteúdo' onChange={(e) => setBody(e.target.value)}></textarea>
             </div>
             <input type='submit' value='Criar Post' className='geral-btn'></input>
           </form>
